@@ -13,7 +13,7 @@ const path = require("path");
 const ffmpeg = require("fluent-ffmpeg");
 const ffmpegPath = require("ffmpeg-static");
 
-let gemini_key = process.env.GEMINI_KEY;
+const gemini_key = process.env.GEMINI_KEY;
 
 const genAI = new GoogleGenerativeAI(gemini_key);
 
@@ -21,7 +21,7 @@ const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-002" });
 
 const app = express();
 
-let frontend_url = process.env.FRONTEND_URL;
+const frontend_url = process.env.FRONTEND_URL;
 app.use(cors({ origin: frontend_url })); // Allow requests from  frontend
 
 const server = http.createServer(app);
@@ -49,34 +49,54 @@ io.on("connection", (socket) => {
     try {
       // Detect Bible quote
 
-      let transcript = data?.transcript;
-      let refIsAvailable = data?.ref ? true : false;
+      const transcript = data?.transcript;
+      const refIsAvailable = data?.ref ? true : false;
 
       if (refIsAvailable) {
         const result = await isImpliedNextVerse(transcript);
-
-        let isNextVerse = result.response.text();
+        const isNextVerse = result.response.text();
 
         // if the user wants the next verse
         // if (isNextVerse?.trim() === "yes" || isNextVerse?.trim() === "Yes") {
         if (["yes", "Yes"].includes(isNextVerse?.trim())) {
           // // get the next verse of the prev verse
-          let result = await getTheNextVerse(data.ref);
-          let nextVerse = result.response.text();
+          const result = await getTheNextVerse(data.ref);
+          const nextVerse = result.response.text();
 
           // identify the book/chapter/verse in the next verse
-          let book = await getBibleBookChapterAndVerse(nextVerse);
+          const book = await getBibleBookChapterAndVerse(nextVerse);
 
           return socket.emit("bibleQuote", {
             reference: book.response.text(),
             text: nextVerse,
           });
         }
+
+        const prev_result = await isImpliedPreviousVerse(transcript);
+        const isPrevVerse = prev_result.response.text();
+
+        console.log(isPrevVerse, "IS__PREVVVV");
+
+        // if the user wants the previous verse
+
+        if (["yes", "Yes"].includes(isPrevVerse?.trim())) {
+          // // get the previos verse of the current verse
+          const prev_result = await getThePreviousVerse(data.ref);
+          const prevVerse = prev_result.response.text();
+
+          // identify the book/chapter/verse in the previous verse
+          const book = await getBibleBookChapterAndVerse(prevVerse);
+
+          return socket.emit("bibleQuote", {
+            reference: book.response.text(),
+            text: prevVerse,
+          });
+        }
       }
 
-      let result = await getBibleBookChapterAndVerse(data?.transcript);
+      const result = await getBibleBookChapterAndVerse(data?.transcript);
 
-      let verse = await getBibleQuote(result.response.text());
+      const verse = await getBibleQuote(result.response.text());
 
       socket.emit("bibleQuote", {
         reference: result.response.text(),
@@ -122,6 +142,22 @@ async function getTheNextVerse(pevVerseRef) {
 async function isImpliedNextVerse(transcript) {
   const prompt = `Does the text imply a desire to continue reading 
   the subsequent verse of the Bible, immediately following the previous verse?. Answer 'yes' or 'no' Text: ${transcript}`;
+
+  const result = await model.generateContent(prompt);
+  return result;
+}
+
+async function getThePreviousVerse(pevVerseRef) {
+  // get the next verse
+  const prompt = `What is the verse before John ${pevVerseRef},return only the verse together with the book chapter eg:"John 3:16, I and my father are one" without any additional wordings`;
+
+  const result = await model.generateContent(prompt);
+  return result;
+}
+
+async function isImpliedPreviousVerse(transcript) {
+  const prompt = `Does the text imply a desire to go back reading 
+  the previous verse of the Bible, immediately before the current verse?. Answer 'yes' or 'no' Text: ${transcript}`;
 
   const result = await model.generateContent(prompt);
   return result;
