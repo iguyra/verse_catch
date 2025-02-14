@@ -9,7 +9,6 @@ listens live and displays Bible quotations in real time
 1. TECH STACK :
 2. nextjs
 3. nodejs/ expressjs
-4. nodejs
-5. socketio for peer to peer connection
-6. webkitSpeechRecognition for transcribing the voice
-7. google gemini for deteting the verses in the transcribed voice
+4. socketio for peer to peer connection
+5. webkitSpeechRecognition for transcribing the voice
+6. google gemini for deteting the verses in the transcribed voice
