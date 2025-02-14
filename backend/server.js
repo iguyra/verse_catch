@@ -75,8 +75,6 @@ io.on("connection", (socket) => {
         const prev_result = await isImpliedPreviousVerse(transcript);
         const isPrevVerse = prev_result.response.text();
 
-        console.log(isPrevVerse, "IS__PREVVVV");
-
         // if the user wants the previous verse
 
         if (["yes", "Yes"].includes(isPrevVerse?.trim())) {
