@@ -1,0 +1,45 @@
+  .header {
+       color: "#292b2c";
+   background-color: "#222222";
+  }
+
+  
+  .nameInitial {
+      background-color: #007ced;
+    padding: 10px;
+          border-radius: 50%;
+          font-weight: bold;
+          margin-right: 5px;
+  }
+
+  
+
+  .name {
+      color: white;
+          display: flex;
+          align-items: center;
+          font-size: 20px;
+  }
+
+  
+  .headerContainer {
+      color: #8d8d8d;
+          display: flex;
+          justify-content: space-between;
+          align-items:center;
+          width: 96%;
+          margin: 0 auto;
+  }
+
+  
+  .menuContainer {
+      width: 30px;
+  }
+
+  
+
+  .menu{
+      width: 100%;
+  }
+
+  

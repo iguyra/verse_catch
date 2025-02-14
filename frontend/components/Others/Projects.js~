@@ -1,0 +1,78 @@
+import styles from "./Projects.module.css";
+
+function Projects() {
+  return (
+    <div id="projects" className={styles.projects}>
+      <div id="knowledge" className={styles.knowledge}>
+        <div className={styles.knowledgeHeader}>Some projects</div>
+        <ul className={styles.KnowledgeContainer}>
+          <li className={styles.knowledgeList}>
+            <div data-aos="fade-right" className={styles.imgContainer}>
+              <img src={"static/beel.png"} alt="" />
+            </div>
+            <div data-aos="fade-up" className={styles.knowledgeside}>
+              <p className={styles.knowledgeTitle}>
+                <a href="https://beelydrop.vercel.app">
+                  Multi Vendor ecommerce store
+                </a>
+              </p>
+              <p className={styles.knowledgeDes}>
+                stack: nextjs, nodejs, expressjs, MongoDb, etc
+              </p>
+            </div>
+          </li>
+
+          <li className={styles.knowledgeList}>
+            <div data-aos="fade-right" className={styles.imgContainer}>
+              <img src={"static/prio.png"} alt="" />
+            </div>
+            <div data-aos="fade-up" className={styles.knowledgeside}>
+              <p className={styles.knowledgeTitle}>
+                <a href="https://projectio.vercel.app">
+                  Web development agency
+                </a>
+              </p>
+              <p className={styles.knowledgeDes}>
+                stack: nextjs + nextjs api + nodemailer
+              </p>
+            </div>
+          </li>
+
+          <li className={styles.knowledgeList}>
+            <div data-aos="fade-right" className={styles.imgContainer}>
+              <img src={"static/inline.png"} alt="" />
+            </div>
+            <div data-aos="fade-up" className={styles.knowledgeside}>
+              <p className={styles.knowledgeTitle}>
+                <a href="https://inlineplus.com">
+                  Multi Vendor Vehicles distribution store
+                </a>
+              </p>
+              <p className={styles.knowledgeDes}>
+                stack: nextjs, nodejs, expressjs, MongoDb, etc
+              </p>
+            </div>
+          </li>
+
+          <li className={styles.knowledgeList}>
+            <div data-aos="fade-right" className={styles.imgContainer}>
+              <img src={"static/g1.png"} alt="" />
+            </div>
+            <div data-aos="fade-up" className={styles.knowledgeside}>
+              <p className={styles.knowledgeTitle}>
+                <a href="https://bluelight-end.vercel.app">
+                  Multi Vendor ecommerce store
+                </a>
+              </p>
+              <p className={styles.knowledgeDes}>
+                stack: nextjs, nodejs, expressjs, MongoDb, etc
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+export default Projects;

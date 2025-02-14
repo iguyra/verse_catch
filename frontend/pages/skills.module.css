@@ -1,0 +1,125 @@
+.body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  background: #ececec;
+  color: #333333;
+}
+
+.versecontainer {
+  text-align: center;
+  width: 354;
+  height: 165;
+  top: 308px;
+  left: 24px;
+  border-radius: 18px;
+  padding-top: 12px;
+  padding-right: 16px;
+  padding-bottom: 12px;
+  padding-left: 16px;
+  gap: 16px;
+}
+
+.versecontainer p {
+  /* width: 322px; */
+  height: 104px;
+  font-family: Geist;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 26px;
+  letter-spacing: 0%;
+  text-align: center;
+}
+
+.title {
+  font-family: Geist;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20.8px;
+  letter-spacing: 0%;
+  color: #1a1a1a;
+}
+
+.versecontainer h3 {
+  /* width: 153px; */
+  height: 21px;
+
+  font-family: Geist;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 21px;
+  letter-spacing: 0%;
+  margin-bottom: 5px;
+}
+
+.controlcontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 340px;
+  height: 186px;
+
+  padding: 20px 0;
+  padding-right: 20px;
+  padding-left: 20px;
+
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  background-color: #f7f7f7;
+  gap: 6px;
+}
+
+.controlcontainer h3 {
+  /* width: 153px; */
+  display: flex;
+  flex-direction: column;
+}
+
+.controlcontainer p {
+  font-family: Geist;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20.79px;
+  letter-spacing: 0%;
+  text-align: center;
+  color: #1a1a1a;
+  width: 214px;
+  height: 42px;
+}
+
+.controlbutton {
+  width: 197px;
+  height: 48px;
+  border-radius: 32px;
+  background-color: #1a1a1a;
+  color: white;
+  cursor: pointer;
+}
+
+.controlbutton p {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.controlbutton p img {
+  width: 24px;
+  height: 24px;
+}
+
+.controlbutton p span {
+  display: flex;
+}
+
+.controlbuttonIsactive {
+  background-color: #ffdcdb;
+}
+
+.controlbuttonIsactive p {
+  color: #ff6259;
+}

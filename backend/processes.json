@@ -1,0 +1,20 @@
+{
+  "apps" : [{
+   "name": "G1server",
+   "script": "server.js",
+    
+   "ignore_watch": ["node_modules"],
+   "instances" : "0",
+    "exec_mode" : "cluster",
+    
+   "env": {
+       "NODE_ENV": "production"        
+   },
+   "env_dev": {
+    "NODE_ENV": "development"        
+   },  "env_stage": {
+    "NODE_ENV": "staging"        
+   }
+ 
+ }]
+}
