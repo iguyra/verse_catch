@@ -15,11 +15,11 @@ const ffmpegPath = require("ffmpeg-static");
 
 let gemini_key = process.env.GEMINI_KEY;
 
+console.log(gemini_key, "FEEE");
+
 const genAI = new GoogleGenerativeAI(gemini_key);
 
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-002" });
-
-let apiKey = process.env.GEMINI_KEY;
 
 // const openai = new OpenAI({ apiKey });
 
@@ -75,9 +75,9 @@ io.on("connection", (socket) => {
           let nextVerse = result.response.text();
           console.log(nextVerse, "IS_NEXTT_VERSE");
 
-          // identify the book/chapter/verse
+          // identify the book/chapter/verse in the next verse
           const versePrompt = `Identify Bible reference in: "${nextVerse}"
-                        Return ONLY the book and chapter and verse or ${nextVerse} is not bible verse.`;
+                        Return ONLY the book and chapter and verse or "${nextVerse} is not bible verse" explicitly.`;
 
           const book = await model.generateContent(versePrompt);
 
