@@ -13,15 +13,15 @@ const path = require("path");
 const ffmpeg = require("fluent-ffmpeg");
 const ffmpegPath = require("ffmpeg-static");
 
-let gemini_key = "AIzaSyB-77bwdN2pMMifoTh15P341tYR19lJbow";
+let gemini_key = process.env.GEMINI_KEY;
 
 const genAI = new GoogleGenerativeAI(gemini_key);
+
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-002" });
 
-let apiKey =
-  "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";
+let apiKey = process.env.GEMINI_KEY;
 
-const openai = new OpenAI({ apiKey });
+// const openai = new OpenAI({ apiKey });
 
 const app = express();
 
