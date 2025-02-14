@@ -1,4 +1,4 @@
-listens live during sermons and displays Bible quotations in real time
+listens live and displays Bible quotations in real time
 
 1. it listens and detects bible verses when you speak
 2. you can asked it to go to the next verse eg: go to the next verse
