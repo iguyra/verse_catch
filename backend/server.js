@@ -58,15 +58,14 @@ io.on("connection", (socket) => {
         let isNextVerse = result.response.text();
 
         // if the user wants the next verse
-        if (isNextVerse?.trim() === "yes" || isNextVerse?.trim() === "Yes") {
+        // if (isNextVerse?.trim() === "yes" || isNextVerse?.trim() === "Yes") {
+        if (["yes", "Yes"].includes(isNextVerse?.trim())) {
           // // get the next verse of the prev verse
           let result = await getTheNextVerse(data.ref);
           let nextVerse = result.response.text();
 
           // identify the book/chapter/verse in the next verse
           let book = await getBibleBookChapterAndVerse(nextVerse);
-
-          console.log(book.response.text(), "NEXT_VERSE_BOOK");
 
           return socket.emit("bibleQuote", {
             reference: book.response.text(),
@@ -76,8 +75,6 @@ io.on("connection", (socket) => {
       }
 
       let result = await getBibleBookChapterAndVerse(data?.transcript);
-
-      console.log(result.response.text(), "RETRUNN__BOOK");
 
       let verse = await getBibleQuote(result.response.text());
 

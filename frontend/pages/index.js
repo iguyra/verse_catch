@@ -12,13 +12,11 @@ import io from "socket.io-client";
 
 function App() {
   const [isRecording, setIsRecording] = useState(false);
-  const [transcript, setTranscript] = useState("");
 
   const socketRef = useRef(null);
   const [quote, setQuote] = useState("");
   const [verseDetected, setVerseDetected] = useState("");
 
-  console.log(process.env.NEXT_PUBLIC_BACKEND_URL, "QUUOOTTEE");
   useEffect(() => {
     socketRef.current = io(process.env.NEXT_PUBLIC_BACKEND_URL);
 
@@ -38,7 +36,6 @@ function App() {
 
   // Reference to store the SpeechRecognition instance
   const recognitionRef = useRef(null);
-  const fullTranscriptRef = useRef("");
 
   // Function to start recording
   const startRecording = () => {
@@ -51,6 +48,7 @@ function App() {
         alert(
           "Your browser does not support speech recognition. Please use Chrome or another supported browser."
         );
+        return;
       }
 
       recognitionRef.current = new SpeechRecognition();
@@ -82,22 +80,12 @@ function App() {
     }
   };
 
-  // Cleanup effect when the component unmounts
-  // useEffect(() => {
-  //   return () => {
-  //     // Stop the speech recognition if it's active
-  //     if (recognitionRef.current) {
-  //       recognitionRef.current.stop();
-  //     }
-  //   };
-  // }, []);
-
   // Function to stop recording
   const stopRecording = () => {
     if (recognitionRef.current) {
-      // Stop the speech recognition and mark recording as complete
+      // Stop the speech recognition
       recognitionRef.current.stop();
-      // setRecordingComplete(true);
+
       setIsRecording(false);
     }
   };
@@ -112,15 +100,12 @@ function App() {
     }
   };
 
-  console.log(transcript, "fullTranscriptReffullTranscriptRef");
-
   return (
     <main>
       <Head>
-        <title>.A. place</title>
-        <meta name="description" content="Preston's porfolio website" />
+        <title>verse catch | say the verse, get the verse</title>
+
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link href="https://prestonxa.vercel.com" rel="canonical" />
       </Head>
 
       <div className="app">
@@ -162,7 +147,6 @@ function App() {
 
             <div
               onClick={handleToggleRecording}
-              // className={styles.controlbutton}
               className={`${styles.controlbutton} ${
                 isRecording ? styles.controlbuttonIsactive : ""
               }`}
