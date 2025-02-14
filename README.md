@@ -6,10 +6,9 @@ listens live and displays Bible quotations in real time
 4. it returns the book chapter and verse and quote when you say a bible quote eg: i and my father are one
 
 
-
-1. TECH STACK :
-2. nextjs
-3. nodejs/ expressjs
-4. socketio for peer to peer connection
-5. webkitSpeechRecognition for transcribing the voice
-6. google gemini for deteting the verses in the transcribed voice
+ TECH STACK :
+1. nextjs
+2. nodejs/ expressjs
+3. socketio for peer to peer connection
+4. webkitSpeechRecognition for transcribing the voice
+5. google gemini for deteting the verses in the transcribed voice
