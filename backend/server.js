@@ -4,6 +4,8 @@ const { Server } = require("socket.io");
 const cors = require("cors"); // Import cors
 const { OpenAI } = require("openai");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
+const dotenv = require("dotenv");
+dotenv.config({ path: "./config.env" });
 
 const fs = require("fs");
 const path = require("path");
@@ -22,12 +24,14 @@ let apiKey =
 const openai = new OpenAI({ apiKey });
 
 const app = express();
-app.use(cors({ origin: "http://127.0.0.1:3000" })); // Allow requests from your Next.js frontend
+
+let frontend_url = process.env.FRONTEND_URL;
+app.use(cors({ origin: frontend_url })); // Allow requests from your Next.js frontend
 
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://127.0.0.1:3000", // Allow Socket.IO connections from your Next.js frontend
+    origin: frontend_url, // Allow Socket.IO connections from your Next.js frontend
     methods: ["GET", "POST"], // Allowed HTTP methods
   },
 });
