@@ -46,6 +46,13 @@ function App() {
       const SpeechRecognition =
         window.SpeechRecognition || window.webkitSpeechRecognition;
 
+      if (!SpeechRecognition) {
+        console.error("Speech recognition is not supported in this browser.");
+        alert(
+          "Your browser does not support speech recognition. Please use Chrome or another supported browser."
+        );
+      }
+
       recognitionRef.current = new SpeechRecognition();
       recognitionRef.current.continuous = true;
 

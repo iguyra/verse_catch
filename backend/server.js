@@ -15,23 +15,19 @@ const ffmpegPath = require("ffmpeg-static");
 
 let gemini_key = process.env.GEMINI_KEY;
 
-console.log(gemini_key, "FEEE");
-
 const genAI = new GoogleGenerativeAI(gemini_key);
 
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-002" });
 
-// const openai = new OpenAI({ apiKey });
-
 const app = express();
 
 let frontend_url = process.env.FRONTEND_URL;
-app.use(cors({ origin: frontend_url })); // Allow requests from your Next.js frontend
+app.use(cors({ origin: frontend_url })); // Allow requests from  frontend
 
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: frontend_url, // Allow Socket.IO connections from your Next.js frontend
+    origin: frontend_url, // Allow Socket.IO connections from frontend
     methods: ["GET", "POST"], // Allowed HTTP methods
   },
 });
@@ -66,7 +62,6 @@ io.on("connection", (socket) => {
           // // get the next verse of the prev verse
           let result = await getTheNextVerse(data.ref);
           let nextVerse = result.response.text();
-          console.log(nextVerse, "IS_NEXTT_VERSE");
 
           // identify the book/chapter/verse in the next verse
           let book = await getBibleBookChapterAndVerse(nextVerse);
@@ -113,7 +108,7 @@ async function getBibleQuote(ref) {
 async function getBibleBookChapterAndVerse(verse) {
   // identify the book/chapter/verse in the verse
   const versePrompt = `Identify Bible reference in: "${verse}"
- Return ONLY the book and chapter and verse or "${verse} is not bible verse" explicitly.`;
+ Return ONLY the book and chapter and verse eg:"John 3:16" or "${verse} is not bible verse" explicitly.`;
 
   const book = await model.generateContent(versePrompt);
   return book;
