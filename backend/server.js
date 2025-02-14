@@ -53,33 +53,23 @@ io.on("connection", (socket) => {
     try {
       // Detect Bible quote
 
-      console.log(data, "AUDIO__sTREEAM");
-
       let transcript = data?.transcript;
       let refIsAvailable = data?.ref ? true : false;
 
       if (refIsAvailable) {
-        const prompt = `Does the text imply a desire to continue reading 
-      the subsequent verse of the Bible, immediately following the previous verse?. Answer 'yes' or 'no' Text: ${transcript}`;
-
-        const result = await model.generateContent(prompt);
+        const result = await isImpliedNextVerse(transcript);
 
         let isNextVerse = result.response.text();
 
-        // prompt for the next verse
+        // if the user wants the next verse
         if (isNextVerse?.trim() === "yes" || isNextVerse?.trim() === "Yes") {
-          const prompt = `go to the next verse in: ${data?.ref}, return ony: "${data?.ref}" and only the next verse without any additional wordings`;
-
-          // get the next verse
-          const result = await model.generateContent(prompt);
+          // // get the next verse of the prev verse
+          let result = await getTheNextVerse(data.ref);
           let nextVerse = result.response.text();
           console.log(nextVerse, "IS_NEXTT_VERSE");
 
           // identify the book/chapter/verse in the next verse
-          const versePrompt = `Identify Bible reference in: "${nextVerse}"
-                        Return ONLY the book and chapter and verse or "${nextVerse} is not bible verse" explicitly.`;
-
-          const book = await model.generateContent(versePrompt);
+          let book = await getBibleBookChapterAndVerse(nextVerse);
 
           console.log(book.response.text(), "NEXT_VERSE_BOOK");
 
@@ -90,19 +80,15 @@ io.on("connection", (socket) => {
         }
       }
 
-      const prompt = `Identify Bible reference in: "${data.transcript}"
-                        Return ONLY the book and chapter and verse or not bible verse.`;
-
-      const result = await model.generateContent(prompt);
-      previousBook = result.response.text();
+      let result = await getBibleBookChapterAndVerse(data?.transcript);
 
       console.log(result.response.text(), "RETRUNN__BOOK");
 
-      let verseee = await getBibleQuote(result.response.text());
+      let verse = await getBibleQuote(result.response.text());
 
       socket.emit("bibleQuote", {
         reference: result.response.text(),
-        text: verseee,
+        text: verse,
       });
 
       // console.log(verseee, "VERRRRRR");
@@ -122,4 +108,29 @@ async function getBibleQuote(ref) {
   const response = await fetch(`https://bible-api.com/${ref}`);
   const data = await response.json();
   return data.text;
+}
+
+async function getBibleBookChapterAndVerse(verse) {
+  // identify the book/chapter/verse in the verse
+  const versePrompt = `Identify Bible reference in: "${verse}"
+ Return ONLY the book and chapter and verse or "${verse} is not bible verse" explicitly.`;
+
+  const book = await model.generateContent(versePrompt);
+  return book;
+}
+
+async function getTheNextVerse(pevVerseRef) {
+  // get the next verse
+  const prompt = `go to the next verse in: ${pevVerseRef},return only the verse together with the book chapter eg:"John 3:16, I and my father are one" without any additional wordings`;
+
+  const result = await model.generateContent(prompt);
+  return result;
+}
+
+async function isImpliedNextVerse(transcript) {
+  const prompt = `Does the text imply a desire to continue reading 
+  the subsequent verse of the Bible, immediately following the previous verse?. Answer 'yes' or 'no' Text: ${transcript}`;
+
+  const result = await model.generateContent(prompt);
+  return result;
 }
