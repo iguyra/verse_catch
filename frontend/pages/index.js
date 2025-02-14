@@ -3,11 +3,12 @@ import "regenerator-runtime/runtime";
 import "aos/dist/aos.css";
 
 import Head from "next/head";
-import SpeechRecognition, { useSpeechRecognition } from "react-speech-kit";
 
 import styles from "./skills.module.css";
 import { useState, useRef, useEffect } from "react";
 import io from "socket.io-client";
+
+// import baseURL from "../utils/baseURL";
 
 function App() {
   const [isRecording, setIsRecording] = useState(false);
@@ -17,9 +18,9 @@ function App() {
   const [quote, setQuote] = useState("");
   const [verseDetected, setVerseDetected] = useState("");
 
-  console.log(quote, "QUUOOTTEE");
+  console.log(process.env.NEXT_PUBLIC_BACKEND_URL, "QUUOOTTEE");
   useEffect(() => {
-    socketRef.current = io("http://127.0.0.1:8000");
+    socketRef.current = io(process.env.NEXT_PUBLIC_BACKEND_URL);
 
     socketRef.current.on("bibleQuote", (quote) => {
       setQuote(quote);
