@@ -77,7 +77,7 @@ io.on("connection", (socket) => {
 
           // identify the book/chapter/verse
           const versePrompt = `Identify Bible reference in: "${nextVerse}"
-                        Return ONLY the book and chapter and verse or not bible verse.`;
+                        Return ONLY the book and chapter and verse or ${nextVerse} is not bible verse.`;
 
           const book = await model.generateContent(versePrompt);
 

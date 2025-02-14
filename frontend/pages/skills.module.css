@@ -123,3 +123,31 @@
 .controlbuttonIsactive p {
   color: #ff6259;
 }
+
+@media only screen and (min-width: 600px) {
+  .versecontainer {
+    width: 830px;
+    height: 315;
+    top: 165px;
+    left: 241px;
+    border-radius: 18px;
+    padding-top: 32px;
+    padding-right: 36px;
+    padding-bottom: 32px;
+    padding-left: 36px;
+    gap: 24px;
+  }
+
+  .controlcontainer {
+    width: 700px;
+    height: 200px;
+    top: 527px;
+    left: 370px;
+    border-radius: 24px;
+    padding-top: 26px;
+    padding-right: 20px;
+    padding-bottom: 26px;
+    padding-left: 20px;
+    gap: 24px;
+  }
+}
