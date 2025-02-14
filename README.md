@@ -1,8 +1,9 @@
 listens live and displays Bible quotations in real time
 
 1. it listens and detects bible verses when you speak
-2. you can asked it to go to the next verse eg: go to the next verse
-3. it returns the book chapter and verse and quote when you say a bible quote eg: i and my father are one
+2. it then returns the bible quote live
+3. you can asked it to go to the next verse eg: go to the next verse
+4. it returns the book chapter and verse and quote when you say a bible quote eg: i and my father are one
 
 
 
